@@ -35,6 +35,8 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
 
 - Muestra el estado activado o desactivado y un icono distinto para cada
   estado.
+- Al cambiar el estado desde el toggle, muestra un OSD con el mensaje y el
+  icono de ubicación correspondientes. Los cambios externos no generan OSD.
 - Se actualiza al cambiar la preferencia desde Configuración de GNOME u otra
   aplicación.
 - No solicita la ubicación ni modifica permisos de aplicaciones. Solo cambia

@@ -53,10 +53,10 @@ const LocationToggle = GObject.registerClass(
 
       this._updatingFromSettings = true;
 
-      const enabled = this._settings.get_boolean(LOCATION_ENABLED_KEY);
-      this.checked = enabled;
-      this.iconName = enabled ? "location-services-active-symbolic" : "location-services-disabled-symbolic";
-      this.subtitle = enabled ? _("Enabled") : _("Disabled");
+      const valEnabled = this._settings.get_boolean(LOCATION_ENABLED_KEY);
+      this.checked = valEnabled;
+      this.iconName = this._getIconName(valEnabled);
+      this.subtitle = valEnabled ? _("Enabled") : _("Disabled");
 
       this._updatingFromSettings = false;
     }
@@ -68,10 +68,23 @@ const LocationToggle = GObject.registerClass(
         const wasWritten = this._settings.set_boolean(LOCATION_ENABLED_KEY, this.checked);
 
         if (!wasWritten) throw new Error("The location setting could not be written");
+
+        this._showStateOsd(this.checked);
       } catch (error) {
         logError(error, _("Location Quick Toggle: unable to update location services"));
         this._syncFromSettings();
       }
+    }
+
+    _getIconName(isEnabled) {
+      return isEnabled ? "location-services-active-symbolic" : "location-services-disabled-symbolic";
+    }
+
+    _showStateOsd(isEnabled) {
+      const icon = new Gio.ThemedIcon({ name: this._getIconName(isEnabled) });
+      const message = isEnabled ? _("Location enabled") : _("Location disabled");
+
+      Main.osdWindowManager.show(-1, icon, message, null);
     }
 
     destroy() {
