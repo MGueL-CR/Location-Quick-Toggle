@@ -37,6 +37,18 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: extension.js:72
+#: extension.js:70
+msgid "The location setting could not be written"
+msgstr ""
+
+#: extension.js:74
 msgid "Location Quick Toggle: unable to update location services"
+msgstr ""
+
+#: extension.js:85
+msgid "Location enabled"
+msgstr ""
+
+#: extension.js:85
+msgid "Location disabled"
 msgstr ""

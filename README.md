@@ -71,6 +71,5 @@ Cuando se añadan cadenas a `extension.js`, regenere la plantilla antes de
 actualizar los archivos PO:
 
 ```bash
-xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \
-  --output=po/location-quick-toggle.pot extension.js
+xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \  --output=po/location-quick-toggle.pot extension.js
 ```

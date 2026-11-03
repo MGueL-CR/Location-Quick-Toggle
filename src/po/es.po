@@ -35,6 +35,18 @@ msgstr "Activada"
 msgid "Disabled"
 msgstr "Desactivada"
 
-#: extension.js:72
+#: extension.js:70
+msgid "The location setting could not be written"
+msgstr "No se puede guardar la configuración de ubicación"
+
+#: extension.js:74
 msgid "Location Quick Toggle: unable to update location services"
 msgstr "Location Quick Toggle: no se pueden actualizar los servicios de ubicación"
+
+#: extension.js:85
+msgid "Location enabled"
+msgstr "Ubicación activada"
+
+#: extension.js:85
+msgid "Location disabled"
+msgstr "Ubicación desactivada"

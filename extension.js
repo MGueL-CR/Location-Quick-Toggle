@@ -67,7 +67,7 @@ const LocationToggle = GObject.registerClass(
       try {
         const wasWritten = this._settings.set_boolean(LOCATION_ENABLED_KEY, this.checked);
 
-        if (!wasWritten) throw new Error("The location setting could not be written");
+        if (!wasWritten) throw new Error(_("The location setting could not be written"));
 
         this._showStateOsd(this.checked);
       } catch (error) {
