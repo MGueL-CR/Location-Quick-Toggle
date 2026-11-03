@@ -33,7 +33,8 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
 
 ## Comportamiento y límites
 
-- Muestra “Activada” o “Desactivada” y un icono distinto para cada estado.
+- Muestra el estado activado o desactivado y un icono distinto para cada
+  estado.
 - Se actualiza al cambiar la preferencia desde Configuración de GNOME u otra
   aplicación.
 - No solicita la ubicación ni modifica permisos de aplicaciones. Solo cambia
@@ -41,3 +42,33 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
 - La ubicación efectiva también requiere que los componentes del sistema,
   como GeoClue, estén disponibles y que las aplicaciones tengan permiso para
   usarla.
+
+## Traducciones
+
+Las cadenas de la interfaz usan gettext con el dominio
+`location-quick-toggle`. La plantilla para traductores está en
+`po/location-quick-toggle.pot`; use ese archivo para crear un nuevo catálogo
+`po/<idioma>.po`.
+
+La traducción inicial al español se encuentra en `po/es.po` y su catálogo
+compilado se instala en `locale/es/LC_MESSAGES/location-quick-toggle.mo`.
+Por ejemplo, para iniciar una traducción al **francés**:
+
+```bash
+msginit --input=po/location-quick-toggle.pot --locale=fr --output-file=po/fr.po
+```
+
+Después de editar un archivo PO, compile su catálogo:
+
+```bash
+mkdir -p locale/fr/LC_MESSAGES
+msgfmt --check --output-file locale/fr/LC_MESSAGES/location-quick-toggle.mo po/fr.po
+```
+
+Cuando se añadan cadenas a `extension.js`, regenere la plantilla antes de
+actualizar los archivos PO:
+
+```bash
+xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \
+  --output=po/location-quick-toggle.pot extension.js
+```

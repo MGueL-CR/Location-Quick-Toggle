@@ -10,7 +10,7 @@ import GObject from "gi://GObject";
 
 import * as Main from "resource:///org/gnome/shell/ui/main.js";
 import * as QuickSettings from "resource:///org/gnome/shell/ui/quickSettings.js";
-import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
+import { Extension, gettext as _ } from "resource:///org/gnome/shell/extensions/extension.js";
 
 const LOCATION_SCHEMA = "org.gnome.system.location";
 const LOCATION_ENABLED_KEY = "enabled";
@@ -19,7 +19,7 @@ const LocationToggle = GObject.registerClass(
   class LocationToggle extends QuickSettings.QuickToggle {
     _init() {
       super._init({
-        title: "Ubicación",
+        title: _("Location"),
         iconName: "location-services-disabled-symbolic",
         toggleMode: true,
       });
@@ -33,18 +33,15 @@ const LocationToggle = GObject.registerClass(
       const schema = schemaSource?.lookup(LOCATION_SCHEMA, true);
 
       if (!schema) {
-        console.error(
-          `Location Quick Toggle: schema '${LOCATION_SCHEMA}' is unavailable`,
-        );
-        this.subtitle = "No disponible";
+        console.error(_("Location Quick Toggle: the location settings schema is unavailable"));
+        this.subtitle = _("Unavailable");
         this.reactive = false;
         return;
       }
 
       this._settings = new Gio.Settings({ settings_schema: schema });
-      this._settingsChangedId = this._settings.connect(
-        `changed::${LOCATION_ENABLED_KEY}`,
-        () => this._syncFromSettings(),
+      this._settingsChangedId = this._settings.connect(`changed::${LOCATION_ENABLED_KEY}`, () =>
+        this._syncFromSettings(),
       );
       this._clickedId = this.connect("clicked", () => this._writeSetting());
 
@@ -58,10 +55,8 @@ const LocationToggle = GObject.registerClass(
 
       const enabled = this._settings.get_boolean(LOCATION_ENABLED_KEY);
       this.checked = enabled;
-      this.iconName = enabled
-        ? "location-services-active-symbolic"
-        : "location-services-disabled-symbolic";
-      this.subtitle = enabled ? "Activada" : "Desactivada";
+      this.iconName = enabled ? "location-services-active-symbolic" : "location-services-disabled-symbolic";
+      this.subtitle = enabled ? _("Enabled") : _("Disabled");
 
       this._updatingFromSettings = false;
     }
@@ -70,25 +65,17 @@ const LocationToggle = GObject.registerClass(
       if (!this._settings || this._updatingFromSettings) return;
 
       try {
-        const wasWritten = this._settings.set_boolean(
-          LOCATION_ENABLED_KEY,
-          this.checked,
-        );
+        const wasWritten = this._settings.set_boolean(LOCATION_ENABLED_KEY, this.checked);
 
-        if (!wasWritten)
-          throw new Error("The location setting could not be written");
+        if (!wasWritten) throw new Error("The location setting could not be written");
       } catch (error) {
-        logError(
-          error,
-          "Location Quick Toggle: unable to update location services",
-        );
+        logError(error, _("Location Quick Toggle: unable to update location services"));
         this._syncFromSettings();
       }
     }
 
     destroy() {
-      if (this._settings && this._settingsChangedId)
-        this._settings.disconnect(this._settingsChangedId);
+      if (this._settings && this._settingsChangedId) this._settings.disconnect(this._settingsChangedId);
 
       if (this._clickedId) this.disconnect(this._clickedId);
 
