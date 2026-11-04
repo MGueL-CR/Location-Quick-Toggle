@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR mguel.dev@proton.me, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-03 23:21-0600\n"
+"PO-Revision-Date: 2026-11-03 23:21-0600\n"
+"Last-Translator: Miguel Mejías A. <mguel.dev@proton.me>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:22
+msgid "Location"
+msgstr ""
+
+#: extension.js:36
+msgid "Location Quick Toggle: the location settings schema is unavailable"
+msgstr ""
+
+#: extension.js:37
+msgid "Unavailable"
+msgstr ""
+
+#: extension.js:59
+msgid "Enabled"
+msgstr ""
+
+#: extension.js:59
+msgid "Disabled"
+msgstr ""
+
+#: extension.js:70
+msgid "The location setting could not be written"
+msgstr ""
+
+#: extension.js:74
+msgid "Location Quick Toggle: unable to update location services"
+msgstr ""
+
+#: extension.js:85
+msgid "Location enabled"
+msgstr ""
+
+#: extension.js:85
+msgid "Location disabled"
+msgstr ""

@@ -1,0 +1,9 @@
+{
+  "uuid": "location-quick-toggle@mguel-cr",
+  "name": "Location Quick Toggle",
+  "description": "Adds a Quick Settings toggle to enable or disable GNOME location services.",
+  "gettext-domain": "location-quick-toggle",
+  "shell-version": ["45", "46", "47", "48", "49"],
+  "version-name": "1.0.0",
+  "url": "https://github.com/MGueL-CR/Location-Quick-Toggle"
+}
