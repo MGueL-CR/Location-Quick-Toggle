@@ -47,29 +47,28 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
 
 ## Traducciones
 
-Las cadenas de la interfaz usan gettext con el dominio
-`location-quick-toggle`. La plantilla para traductores está en
-`po/location-quick-toggle.pot`; use ese archivo para crear un nuevo catálogo
-`po/<idioma>.po`.
+Las cadenas de la interfaz usan gettext con el dominio `location-quick-toggle`.
+La plantilla para traductores está en `src/po/location-quick-toggle.pot`; use ese
+archivo para crear un nuevo catálogo `src/po/lang/<idioma>.po`.
 
-La traducción inicial al español se encuentra en `po/es.po` y su catálogo
+La traducción inicial al español se encuentra en `src/po/lang/es.po` y su catálogo
 compilado se instala en `locale/es/LC_MESSAGES/location-quick-toggle.mo`.
+
 Por ejemplo, para iniciar una traducción al **francés**:
 
-```bash
-msginit --input=po/location-quick-toggle.pot --locale=fr --output-file=po/fr.po
-```
+    ```bash
+    msginit --input=src/po/location-quick-toggle.pot --locale=fr --output-file=src/po/lang/fr.po
+    ```
 
 Después de editar un archivo PO, compile su catálogo:
 
-```bash
-mkdir -p locale/fr/LC_MESSAGES
-msgfmt --check --output-file locale/fr/LC_MESSAGES/location-quick-toggle.mo po/fr.po
-```
+    ```bash
+    mkdir -p locale/fr/LC_MESSAGES
+    msgfmt --check --output-file locale/fr/LC_MESSAGES/location-quick-toggle.mo src/po/lang/fr.po
+    ```
 
-Cuando se añadan cadenas a `extension.js`, regenere la plantilla antes de
-actualizar los archivos PO:
+Cuando se añadan cadenas a `extension.js`, regenere la plantilla antes de actualizar los archivos PO:
 
-```bash
-xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \  --output=po/location-quick-toggle.pot extension.js
-```
+    ```bash
+    xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \--output=src/po/location-quick-toggle.pot extension.js
+    ```
