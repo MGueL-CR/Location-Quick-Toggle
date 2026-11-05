@@ -82,9 +82,14 @@ const LocationToggle = GObject.registerClass(
 
     _showStateOsd(isEnabled) {
       const icon = new Gio.ThemedIcon({ name: this._getIconName(isEnabled) });
-      const message = isEnabled ? _("Location enabled") : _("Location disabled");
+      const label = isEnabled ? _("Location enabled") : _("Location disabled");
+      const index = Main.layoutManager.primaryIndex;
 
-      Main.osdWindowManager.show(-1, icon, message, null);
+      if (Main.osdWindowManager.showOne) {
+        Main.osdWindowManager.showOne(index, icon, label);
+      } else {
+        Main.osdWindowManager.show(index, icon, label);
+      }
     }
 
     destroy() {
