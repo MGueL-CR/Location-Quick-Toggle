@@ -17,8 +17,8 @@ const LOCATION_ENABLED_KEY = "enabled";
 
 const LocationToggle = GObject.registerClass(
   class LocationToggle extends QuickSettings.QuickToggle {
-    _init() {
-      super._init({
+    constructor() {
+      super({
         title: _("Location"),
         iconName: "location-services-disabled-symbolic",
         toggleMode: true,
@@ -40,10 +40,12 @@ const LocationToggle = GObject.registerClass(
       }
 
       this._settings = new Gio.Settings({ settings_schema: schema });
-      this._settingsChangedId = this._settings.connect(`changed::${LOCATION_ENABLED_KEY}`, () =>
-        this._syncFromSettings(),
+      this._settingsChangedId = this._settings.connectObject(
+        `changed::${LOCATION_ENABLED_KEY}`,
+        () => this._syncFromSettings(),
+        this,
       );
-      this._clickedId = this.connect("clicked", () => this._writeSetting());
+      this._clickedId = this.connectObject("clicked", () => this._writeSetting(), this);
 
       this._syncFromSettings();
     }
@@ -93,9 +95,9 @@ const LocationToggle = GObject.registerClass(
     }
 
     destroy() {
-      if (this._settings && this._settingsChangedId) this._settings.disconnect(this._settingsChangedId);
+      if (this._settings && this._settingsChangedId) this._settings.disconnectObject(this._settingsChangedId);
 
-      if (this._clickedId) this.disconnect(this._clickedId);
+      if (this._clickedId) this.disconnectObject(this._clickedId);
 
       this._settings = null;
       super.destroy();
