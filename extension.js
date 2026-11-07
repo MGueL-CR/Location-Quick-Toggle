@@ -1,10 +1,3 @@
-/**
- * Location Quick Toggle
- *
- * This extension controls GNOME's global location-services setting:
- * org.gnome.system.location enabled
- */
-
 import Gio from "gi://Gio";
 import GObject from "gi://GObject";
 
@@ -28,26 +21,34 @@ const LocationToggle = GObject.registerClass(
       this._settingsChangedId = 0;
       this._clickedId = 0;
       this._updatingFromSettings = false;
+      this._valSchema = null;
 
-      const schemaSource = Gio.SettingsSchemaSource.get_default();
-      const schema = schemaSource?.lookup(LOCATION_SCHEMA, true);
+      this._getValueSchema();
 
-      if (!schema) {
+      if (!this._valSchema) {
         console.error(_("Location Quick Toggle: the location settings schema is unavailable"));
         this.subtitle = _("Unavailable");
         this.reactive = false;
         return;
       }
 
-      this._settings = new Gio.Settings({ settings_schema: schema });
+      this._setConnections();
+      this._syncFromSettings();
+    }
+
+    _getValueSchema() {
+      const schemaSource = Gio.SettingsSchemaSource.get_default();
+      this._valSchema = schemaSource?.lookup(LOCATION_SCHEMA, true);
+    }
+
+    _setConnections() {
+      this._settings = new Gio.Settings({ settings_schema: this._valSchema });
       this._settingsChangedId = this._settings.connectObject(
         `changed::${LOCATION_ENABLED_KEY}`,
         () => this._syncFromSettings(),
         this,
       );
       this._clickedId = this.connectObject("clicked", () => this._writeSetting(), this);
-
-      this._syncFromSettings();
     }
 
     _syncFromSettings() {
@@ -99,6 +100,7 @@ const LocationToggle = GObject.registerClass(
 
       if (this._clickedId) this.disconnectObject(this._clickedId);
 
+      this._valSchema = null;
       this._settings = null;
       super.destroy();
     }
