@@ -11,26 +11,6 @@ El código utiliza las APIs de extensiones basadas en ES Modules y Quick
 Settings, disponibles desde GNOME Shell 45. Los metadatos incluyen las
 versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dentro de este rango.
 
-## Instalación
-
-1. Copie la carpeta `location-quick-toggle@mguel-cr` a:
-
-   ```text
-   ~/.local/share/gnome-shell/extensions/
-   ```
-
-2. Active la extensión:
-
-   ```bash
-   gnome-extensions enable location-quick-toggle@mguel-cr
-   ```
-
-3. Abra el menú superior derecho (Quick Settings). El nuevo toggle **Ubicación** aparecerá en "Ajustes rápidos".
-
-> **Nota:** En una sesión X11, reinicie GNOME Shell con `Alt+F2`, escriba `r` y pulse
-> Enter. En Wayland cierre e inicie sesión, o active la extensión desde la
-> aplicación _Extensiones_.
-
 ## Comportamiento y límites
 
 - Muestra el estado activado o desactivado y un icono distinto para cada
@@ -45,6 +25,55 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
   como GeoClue, estén disponibles y que las aplicaciones tengan permiso para
   usarla.
 
+## Instalación
+
+### Copia manual
+
+1. Copie la carpeta `location-quick-toggle@mguel-cr` a:
+
+   ```
+   ~/.local/share/gnome-shell/extensions/
+   ```
+
+2. Active la extensión:
+
+   ```
+   gnome-extensions enable location-quick-toggle@mguel-cr
+   ```
+
+3. Abra el menú superior derecho (Quick Settings):
+
+- El nuevo toggle **Ubicación** aparecerá en "Ajustes rápidos".
+
+> **Nota:** En una sesión X11, reinicie GNOME Shell con `Alt+F2`, escriba `r` y pulse
+> Enter. En Wayland cierre e inicie sesión, o active la extensión desde la
+> aplicación _Extensiones_.
+
+### Con el script manual
+
+Desde el directorio src/, ejecute:
+
+```
+./install-manual.sh
+```
+
+El script copia extension.js, metadata.json, LICENSE y los catálogos de locale/ en el directorio de extensiones del usuario.
+
+- Agrega `--enable` para copiar los archivos e intentar activar la extensión.
+- Agrega `--force` para sobrescribir una instalación existente y
+  actualizarla.
+
+## Paquete para EGO
+
+Para crear el ZIP que se sube a [EGO](https://extensions.gnome.org/)
+(extensions.gnome.org), ejecute desde `src/scripts/`:
+
+```
+./package-ego.sh
+```
+
+El script usa `gnome-extensions pack` para compilar los catálogos de `po/` e incluye los archivos necesarios en `dist/location-quick-toggle@mguel-cr.shell-extension.zip`. También comprueba la integridad del archivo si unzip está disponible.
+
 ## Traducciones
 
 Las cadenas de la interfaz usan gettext con el dominio `location-quick-toggle`.
@@ -56,19 +85,19 @@ compilado se instala en `locale/es/LC_MESSAGES/location-quick-toggle.mo`.
 
 Por ejemplo, para iniciar una traducción al **francés**:
 
-    ```bash
+    ```
     msginit --input=src/po/location-quick-toggle.pot --locale=fr --output-file=src/po/lang/fr.po
     ```
 
 Después de editar un archivo PO, compile su catálogo:
 
-    ```bash
+    ```
     mkdir -p locale/fr/LC_MESSAGES
     msgfmt --check --output-file locale/fr/LC_MESSAGES/location-quick-toggle.mo src/po/lang/fr.po
     ```
 
 Cuando se añadan cadenas a `extension.js`, regenere la plantilla antes de actualizar los archivos PO:
 
-    ```bash
+    ```
     xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \--output=src/po/location-quick-toggle.pot extension.js
     ```
