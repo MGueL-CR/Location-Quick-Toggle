@@ -109,8 +109,8 @@ const LocationToggle = GObject.registerClass(
 
 const LocationIndicator = GObject.registerClass(
   class LocationIndicator extends QuickSettings.SystemIndicator {
-    _init() {
-      super._init();
+    constructor() {
+      super();
       this.quickSettingsItems.push(new LocationToggle());
     }
   },
