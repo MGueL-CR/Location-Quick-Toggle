@@ -1,9 +1,6 @@
 # Location Quick Toggle
 
-Una extensión para GNOME Shell que añade un interruptor **Ubicación** al panel de
-**Ajustes rápidos**. El interruptor controla la opción global de GNOME
-`org.gnome.system.location enabled`, la misma preferencia que habilita o
-deshabilita los servicios de ubicación del sistema.
+Una extensión para GNOME Shell que añade un interruptor **Ubicación** al panel de **Ajustes rápidos**. El interruptor controla la opción global de GNOME `org.gnome.system.location enabled`, la misma preferencia que habilita o deshabilita los servicios de ubicación del sistema.
 
 ## Compatibilidad
 
@@ -26,6 +23,15 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
   usarla.
 
 ## Instalación
+
+### Desde Extensions GNOME Online (recomendado)
+
+1. Abra la página de [Location Quick Toggle en Extensions GNOME Online](https://extensions.gnome.org/extension/11622/location-quick-toggle/).
+2. Active el interruptor de instalación de la página y confirme la acción.
+3. Abra el menú superior derecho: el toggle **Ubicación** aparecerá en
+   Ajustes rápidos.
+
+> \*\* Si el navegador solicita el conector de GNOME Shell, instálelo y vuelva a cargar la página para completar la instalación.
 
 ### Copia manual
 
@@ -51,10 +57,10 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
 
 ### Con el script manual
 
-Desde el directorio src/, ejecute:
+Desde el directorio `src/scripts/`, ejecute:
 
 ```
-./install-manual.sh
+./installer.sh
 ```
 
 El script copia extension.js, metadata.json, LICENSE y los catálogos de locale/ en el directorio de extensiones del usuario.
@@ -69,7 +75,7 @@ Para crear el ZIP que se sube a [EGO](https://extensions.gnome.org/)
 (extensions.gnome.org), ejecute desde `src/scripts/`:
 
 ```
-./package-ego.sh
+./publisher.sh
 ```
 
 El script usa `gnome-extensions pack` para compilar los catálogos de `po/` e incluye los archivos necesarios en `dist/location-quick-toggle@mguel-cr.shell-extension.zip`. También comprueba la integridad del archivo si unzip está disponible.
@@ -85,19 +91,19 @@ compilado se instala en `locale/es/LC_MESSAGES/location-quick-toggle.mo`.
 
 Por ejemplo, para iniciar una traducción al **francés**:
 
-    ```
-    msginit --input=src/po/location-quick-toggle.pot --locale=fr --output-file=src/po/lang/fr.po
-    ```
+```
+msginit --input=src/po/location-quick-toggle.pot --locale=fr --output-file=src/po/lang/fr.po
+```
 
 Después de editar un archivo PO, compile su catálogo:
 
-    ```
-    mkdir -p locale/fr/LC_MESSAGES
-    msgfmt --check --output-file locale/fr/LC_MESSAGES/location-quick-toggle.mo src/po/lang/fr.po
-    ```
+```
+mkdir -p locale/fr/LC_MESSAGES
+msgfmt --check --output-file locale/fr/LC_MESSAGES/location-quick-toggle.mo src/po/lang/fr.po
+```
 
 Cuando se añadan cadenas a `extension.js`, regenere la plantilla antes de actualizar los archivos PO:
 
-    ```
-    xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \--output=src/po/location-quick-toggle.pot extension.js
-    ```
+```
+xgettext --language=JavaScript --from-code=UTF-8 --keyword=_ \--output=src/po/location-quick-toggle.pot extension.js
+```
