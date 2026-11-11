@@ -22,6 +22,13 @@ versiones 45 a 49. No se usan APIs privadas ni específicas de una versión dent
   como GeoClue, estén disponibles y que las aplicaciones tengan permiso para
   usarla.
 
+## Galería
+
+|                    |                    |                    |
+|:------------------:|:------------------:|:------------------:|
+| **Gnome 45**           | ![descripción de la imagen](src/imgs/gnome45-off.png) | ![descripción de la imagen](src/imgs/gnome45-on.png) |
+| **Gnome 50**           | ![descripción de la imagen](src/imgs/gnome50-off.png) | ![descripción de la imagen](src/imgs/gnome50-on.png) |
+
 ## Instalación
 
 ### Desde Extensions GNOME Online (recomendado)
